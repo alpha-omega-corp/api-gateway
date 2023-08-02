@@ -1,1 +1,2 @@
 pkg/**/pb/*.pb.go
+.idea
