@@ -3,7 +3,7 @@ package routes
 import (
 	"context"
 	"encoding/json"
-	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/pb"
+	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
@@ -13,13 +13,13 @@ type RegisterRequestBody struct {
 	Password string `json:"password"`
 }
 
-func RegisterHandler(w http.ResponseWriter, req bunrouter.Request, s pb.AuthServiceClient) error {
+func RegisterHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
 	data := new(RegisterRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err
 	}
 
-	res, err := s.Register(context.Background(), &pb.RegisterRequest{
+	res, err := s.Register(context.Background(), &proto.RegisterRequest{
 		Email:    data.Email,
 		Password: data.Password,
 	})

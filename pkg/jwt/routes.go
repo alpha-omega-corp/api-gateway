@@ -1,8 +1,8 @@
 package jwt
 
 import (
-	"github.com/alpha-omega-corp/api-gateway/pkg/config"
 	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/routes"
+	"github.com/alpha-omega-corp/services/config"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
@@ -13,7 +13,6 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Config) *ServiceClient {
 	}
 
 	cR := r.NewGroup("/auth")
-
 	cR.POST("/login", svc.Login)
 	cR.POST("/register", svc.Register)
 

@@ -1,9 +1,9 @@
 
 syntax = "proto3";
 
-package auth;
+package jwt;
 
-option go_package = "./pkg/jwt/pb";
+option go_package = "./pkg/jwt/proto";
 
 service AuthService {
   rpc Register(RegisterRequest) returns (RegisterResponse) {}

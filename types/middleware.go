@@ -1,19 +1,21 @@
-package jwt
+package types
 
 import (
 	"context"
-	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/pb"
-	"github.com/alpha-omega-corp/api-gateway/pkg/utils"
+	"github.com/alpha-omega-corp/api-gateway/pkg/jwt"
+	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/proto"
+	"github.com/alpha-omega-corp/services/httputils"
+
 	"github.com/uptrace/bunrouter"
 	"net/http"
 	"strings"
 )
 
 type AuthMiddleware struct {
-	svc *ServiceClient
+	svc *jwt.ServiceClient
 }
 
-func NewAuthMiddleware(svc *ServiceClient) *AuthMiddleware {
+func NewAuthMiddleware(svc *jwt.ServiceClient) *AuthMiddleware {
 	return &AuthMiddleware{
 		svc: svc,
 	}
@@ -24,12 +26,12 @@ func (m *AuthMiddleware) Auth(next bunrouter.HandlerFunc) bunrouter.HandlerFunc 
 		header := req.Header.Get("Authorization")
 
 		if header == "" {
-			return utils.ErrNotFound
+			return httputils.ErrNotFound
 		}
 
 		token := strings.Split(header, "Bearer ")[1]
 
-		_, err := m.svc.Client.Validate(context.Background(), &pb.ValidateRequest{
+		_, err := m.svc.Client.Validate(context.Background(), &proto.ValidateRequest{
 			Token: token,
 		})
 

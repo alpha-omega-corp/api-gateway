@@ -1,2 +1,2 @@
-pkg/**/pb/*.pb.go
 .idea
+pkg/**/proto/*.pb.go

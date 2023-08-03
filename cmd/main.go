@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/alpha-omega-corp/api-gateway/pkg/config"
+	"github.com/alpha-omega-corp/api-gateway/pkg/docker"
 	"github.com/alpha-omega-corp/api-gateway/pkg/jwt"
-	"github.com/alpha-omega-corp/api-gateway/pkg/product"
-	"github.com/alpha-omega-corp/api-gateway/pkg/utils"
+	"github.com/alpha-omega-corp/services/config"
+	"github.com/alpha-omega-corp/services/httputils"
+
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/bunrouterotel"
 	"github.com/uptrace/bunrouter/extra/reqlog"
@@ -18,11 +19,7 @@ import (
 )
 
 func main() {
-	c, err := config.LoadConfig()
-
-	if err != nil {
-		log.Fatalln("Failed at config", err)
-	}
+	c := config.Get("dev")
 
 	router := bunrouter.New(
 		bunrouter.WithMiddleware(bunrouterotel.NewMiddleware()),
@@ -32,14 +29,14 @@ func main() {
 		)))
 
 	authentication := *jwt.RegisterRoutes(router, c)
-	product.RegisterRoutes(router, c, &authentication)
+	docker.RegisterRoutes(router, c, &authentication)
 
 	listenAndServe(router, c.HOST)
 }
 
 func listenAndServe(r *bunrouter.Router, host string) {
 	var handler http.Handler
-	handler = utils.ExitOnPanicHandler{Next: r}
+	handler = httputils.ExitOnPanicHandler{Next: r}
 
 	srv := &http.Server{
 		Addr:         host,

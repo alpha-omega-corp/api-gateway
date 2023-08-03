@@ -1,5 +1,0 @@
-host: localhost:3000
-
-auth: localhost:50051
-product: localhost:50052
-
