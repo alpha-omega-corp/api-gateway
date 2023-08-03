@@ -3,7 +3,7 @@ package types
 import (
 	"context"
 	"github.com/alpha-omega-corp/api-gateway/pkg/jwt"
-	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/proto"
+	"github.com/alpha-omega-corp/authentication-svc/pkg/proto"
 	"github.com/alpha-omega-corp/services/httputils"
 
 	"github.com/uptrace/bunrouter"

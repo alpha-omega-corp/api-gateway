@@ -3,10 +3,15 @@ package routes
 import (
 	"context"
 	"encoding/json"
-	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/proto"
+	"github.com/alpha-omega-corp/authentication-svc/pkg/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
+
+type LoginRequestBody struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
 
 func LoginHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
 	data := new(LoginRequestBody)
@@ -24,9 +29,4 @@ func LoginHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServ
 	}
 
 	return bunrouter.JSON(w, res)
-}
-
-type LoginRequestBody struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
 }

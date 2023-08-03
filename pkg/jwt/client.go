@@ -2,7 +2,7 @@ package jwt
 
 import (
 	"fmt"
-	"github.com/alpha-omega-corp/api-gateway/pkg/jwt/proto"
+	"github.com/alpha-omega-corp/authentication-svc/pkg/proto"
 	"github.com/alpha-omega-corp/services/config"
 	"google.golang.org/grpc"
 )

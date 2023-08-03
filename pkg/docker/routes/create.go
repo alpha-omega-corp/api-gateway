@@ -3,10 +3,14 @@ package routes
 import (
 	"context"
 	"encoding/json"
-	"github.com/alpha-omega-corp/api-gateway/pkg/docker/proto"
+	"github.com/alpha-omega-corp/docker-svc/pkg/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
+
+type CreateContainerRequestBody struct {
+	ImageName string `json:"imageName"`
+}
 
 func CreateContainerHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
 	data := new(CreateContainerRequestBody)
@@ -23,8 +27,4 @@ func CreateContainerHandler(w http.ResponseWriter, req bunrouter.Request, s prot
 	}
 
 	return bunrouter.JSON(w, res)
-}
-
-type CreateContainerRequestBody struct {
-	ImageName string `json:"imageName"`
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/alpha-omega-corp/api-gateway/pkg/jwt"
 	"github.com/alpha-omega-corp/services/config"
 	"github.com/alpha-omega-corp/services/httputils"
-
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/bunrouterotel"
 	"github.com/uptrace/bunrouter/extra/reqlog"

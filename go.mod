@@ -3,12 +3,13 @@ module github.com/alpha-omega-corp/api-gateway
 go 1.20
 
 require (
+	github.com/alpha-omega-corp/authentication-svc v0.0.0-20230803195842-218ccb6b14fd
+	github.com/alpha-omega-corp/docker-svc v0.0.0-20230803200832-b89981932c04
 	github.com/alpha-omega-corp/services v0.0.0-20230803190915-c59933f69d24
 	github.com/uptrace/bunrouter v1.0.20
 	github.com/uptrace/bunrouter/extra/bunrouterotel v1.0.20
 	github.com/uptrace/bunrouter/extra/reqlog v1.0.20
 	google.golang.org/grpc v1.57.0
-	google.golang.org/protobuf v1.30.0
 )
 
 require (
@@ -24,5 +25,6 @@ require (
 	golang.org/x/sys v0.10.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230525234030-28d5490b6b19 // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

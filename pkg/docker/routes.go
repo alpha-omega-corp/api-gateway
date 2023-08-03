@@ -9,14 +9,14 @@ import (
 	"net/http"
 )
 
-func RegisterRoutes(r *bunrouter.Router, c *config.Config, auth *jwt.ServiceClient) {
-	m := types.NewAuthMiddleware(auth)
+func RegisterRoutes(r *bunrouter.Router, c *config.Config, s *jwt.ServiceClient) {
+	middleware := types.NewAuthMiddleware(s)
 
 	svc := &ServiceClient{
 		Client: Client(c),
 	}
 
-	cR := r.NewGroup("/docker").Use(m.Auth)
+	cR := r.NewGroup("/docker").Use(middleware.Auth)
 	cR.POST("/", svc.CreateContainer)
 }
 
