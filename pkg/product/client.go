@@ -11,7 +11,7 @@ type ServiceClient struct {
 	Client pb.ProductServiceClient
 }
 
-func InitServiceClient(c *config.Config) pb.ProductServiceClient {
+func NewClient(c *config.Config) pb.ProductServiceClient {
 	cc, err := grpc.Dial(c.PRODUCT, grpc.WithInsecure())
 
 	if err != nil {

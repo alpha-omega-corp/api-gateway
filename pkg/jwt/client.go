@@ -11,7 +11,7 @@ type ServiceClient struct {
 	Client pb.AuthServiceClient
 }
 
-func InitServiceClient(c *config.Config) pb.AuthServiceClient {
+func NewClient(c *config.Config) pb.AuthServiceClient {
 	cc, err := grpc.Dial(c.AUTH, grpc.WithInsecure())
 
 	if err != nil {

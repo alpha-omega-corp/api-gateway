@@ -12,12 +12,12 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Config, auth *jwt.ServiceClie
 	m := jwt.NewAuthMiddleware(auth)
 
 	svc := &ServiceClient{
-		Client: InitServiceClient(c),
+		Client: NewClient(c),
 	}
 
 	cR := r.NewGroup("/product").Use(m.Auth)
 
-	cR.GET("/", svc.Create)
+	cR.POST("/", svc.Create)
 }
 
 func (svc *ServiceClient) Create(w http.ResponseWriter, req bunrouter.Request) error {
