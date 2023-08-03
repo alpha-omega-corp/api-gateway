@@ -13,6 +13,7 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Config) *ServiceClient {
 	}
 
 	cR := r.NewGroup("/auth")
+
 	cR.POST("/login", svc.Login)
 	cR.POST("/register", svc.Register)
 

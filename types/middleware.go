@@ -1,7 +1,6 @@
 package types
 
 import (
-	"context"
 	"github.com/alpha-omega-corp/api-gateway/pkg/jwt"
 	"github.com/alpha-omega-corp/authentication-svc/pkg/proto"
 	"github.com/alpha-omega-corp/services/httputils"
@@ -31,7 +30,7 @@ func (m *AuthMiddleware) Auth(next bunrouter.HandlerFunc) bunrouter.HandlerFunc 
 
 		token := strings.Split(header, "Bearer ")[1]
 
-		_, err := m.svc.Client.Validate(context.Background(), &proto.ValidateRequest{
+		_, err := m.svc.Client.Validate(req.Context(), &proto.ValidateRequest{
 			Token: token,
 		})
 

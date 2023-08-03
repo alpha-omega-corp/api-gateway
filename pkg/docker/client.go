@@ -11,7 +11,7 @@ type ServiceClient struct {
 	Client proto.DockerServiceClient
 }
 
-func Client(c *config.Config) proto.DockerServiceClient {
+func NewClient(c *config.Config) proto.DockerServiceClient {
 	cc, err := grpc.Dial(c.DOCKER, grpc.WithInsecure())
 
 	if err != nil {
