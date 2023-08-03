@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"context"
 	"encoding/json"
 	"github.com/alpha-omega-corp/docker-svc/pkg/proto"
 	"github.com/uptrace/bunrouter"
@@ -18,7 +17,7 @@ func CreateContainerHandler(w http.ResponseWriter, req bunrouter.Request, s prot
 		return err
 	}
 
-	res, err := s.CreateContainer(context.Background(), &proto.CreateContainerRequest{
+	res, err := s.CreateContainer(req.Context(), &proto.CreateContainerRequest{
 		ImageName: data.ImageName,
 	})
 

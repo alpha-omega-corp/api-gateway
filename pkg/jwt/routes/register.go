@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"context"
 	"encoding/json"
 	"github.com/alpha-omega-corp/authentication-svc/pkg/proto"
 	"github.com/uptrace/bunrouter"
@@ -19,7 +18,7 @@ func RegisterHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthS
 		return err
 	}
 
-	res, err := s.Register(context.Background(), &proto.RegisterRequest{
+	res, err := s.Register(req.Context(), &proto.RegisterRequest{
 		Email:    data.Email,
 		Password: data.Password,
 	})

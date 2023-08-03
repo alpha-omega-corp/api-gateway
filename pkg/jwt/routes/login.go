@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"context"
 	"encoding/json"
 	"github.com/alpha-omega-corp/authentication-svc/pkg/proto"
 	"github.com/uptrace/bunrouter"
@@ -19,7 +18,7 @@ func LoginHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServ
 		return err
 	}
 
-	res, err := s.Login(context.Background(), &proto.LoginRequest{
+	res, err := s.Login(req.Context(), &proto.LoginRequest{
 		Email:    data.Email,
 		Password: data.Password,
 	})
