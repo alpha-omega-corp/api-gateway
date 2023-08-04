@@ -5,3 +5,9 @@ proto:
 
 server:
 	go run cmd/main.go
+
+build:
+	go build -o bin/api-gateway cmd/main.go
+
+make run:
+	bin/api-gateway
