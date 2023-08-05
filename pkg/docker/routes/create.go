@@ -2,7 +2,7 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/alpha-omega-corp/docker-svc/pkg/proto"
+	"github.com/alpha-omega-corp/docker-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )

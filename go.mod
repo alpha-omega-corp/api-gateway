@@ -1,11 +1,12 @@
-module github.com/alpha-omega-corp/api-gateway
+module api-gateway
 
 go 1.20
 
 require (
+	github.com/alpha-omega-corp/api-gateway v0.0.0-20230805092842-ac88427fc8ea
 	github.com/alpha-omega-corp/authentication-svc v0.0.0-20230805092052-7f5b537d2d64
-	github.com/alpha-omega-corp/docker-svc v0.0.0-20230803200832-b89981932c04
-	github.com/alpha-omega-corp/services v0.0.0-20230805072726-0a39060024aa
+	github.com/alpha-omega-corp/docker-svc v0.0.0-20230805113604-ce26de973205
+	github.com/alpha-omega-corp/services v0.0.0-20230805111941-84cbc296d601
 	github.com/spf13/viper v1.16.0
 	github.com/uptrace/bunrouter v1.0.20
 	github.com/uptrace/bunrouter/extra/bunrouterotel v1.0.20
