@@ -8,7 +8,8 @@ import (
 )
 
 type CreateContainerRequestBody struct {
-	ImageName string `json:"imageName"`
+	Name  string `json:"name"`
+	Image string `json:"image"`
 }
 
 func CreateContainerHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
@@ -18,7 +19,8 @@ func CreateContainerHandler(w http.ResponseWriter, req bunrouter.Request, s prot
 	}
 
 	res, err := s.CreateContainer(req.Context(), &proto.CreateContainerRequest{
-		ImageName: data.ImageName,
+		Name:  data.Name,
+		Image: data.Image,
 	})
 
 	if err != nil {

@@ -19,7 +19,7 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Config, s *authentication.Ser
 	cR := r.NewGroup("/docker").
 		Use(middleware.Auth)
 
-	cR.POST("/", svc.CreateContainer)
+	cR.POST("/container", svc.CreateContainer)
 }
 
 func (svc *ServiceClient) CreateContainer(w http.ResponseWriter, req bunrouter.Request) error {
