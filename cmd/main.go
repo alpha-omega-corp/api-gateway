@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/alpha-omega-corp/api-gateway/config"
+	"github.com/alpha-omega-corp/api-gateway/pkg/authentication"
 	"github.com/alpha-omega-corp/api-gateway/pkg/docker"
-	"github.com/alpha-omega-corp/api-gateway/pkg/jwt"
-	"github.com/alpha-omega-corp/services/config"
+
 	"github.com/alpha-omega-corp/services/httputils"
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/bunrouterotel"
@@ -18,7 +19,10 @@ import (
 )
 
 func main() {
-	c := config.Get("dev")
+	c, err := config.LoadConfig()
+	if err != nil {
+		panic(err)
+	}
 
 	router := bunrouter.New(
 		bunrouter.WithMiddleware(bunrouterotel.NewMiddleware()),
@@ -27,8 +31,8 @@ func main() {
 			reqlog.WithVerbose(true),
 		)))
 
-	authentication := *jwt.RegisterRoutes(router, c)
-	docker.RegisterRoutes(router, c, &authentication)
+	authClient := *authentication.RegisterRoutes(router, &c)
+	docker.RegisterRoutes(router, &c, &authClient)
 
 	listenAndServe(router, c.HOST)
 }

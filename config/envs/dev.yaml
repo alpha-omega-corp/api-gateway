@@ -1,0 +1,4 @@
+HOST: localhost:3000
+
+AUTH: localhost:50051
+DOCKER: localhost:50052
