@@ -2,14 +2,14 @@ package docker
 
 import (
 	"github.com/alpha-omega-corp/api-gateway/config"
-	"github.com/alpha-omega-corp/api-gateway/pkg/authentication"
+	"github.com/alpha-omega-corp/api-gateway/pkg/auth"
 	"github.com/alpha-omega-corp/api-gateway/pkg/docker/routes"
 	"github.com/alpha-omega-corp/api-gateway/types"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
 
-func RegisterRoutes(r *bunrouter.Router, c *config.Config, s *authentication.ServiceClient) {
+func RegisterRoutes(r *bunrouter.Router, c *config.Config, s *auth.ServiceClient) {
 	middleware := types.NewAuthMiddleware(s)
 
 	svc := &ServiceClient{

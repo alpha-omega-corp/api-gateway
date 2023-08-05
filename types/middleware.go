@@ -2,7 +2,7 @@ package types
 
 import (
 	"errors"
-	"github.com/alpha-omega-corp/api-gateway/pkg/authentication"
+	"github.com/alpha-omega-corp/api-gateway/pkg/auth"
 	"github.com/alpha-omega-corp/authentication-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
@@ -10,10 +10,10 @@ import (
 )
 
 type AuthMiddleware struct {
-	svc *authentication.ServiceClient
+	svc *auth.ServiceClient
 }
 
-func NewAuthMiddleware(svc *authentication.ServiceClient) *AuthMiddleware {
+func NewAuthMiddleware(svc *auth.ServiceClient) *AuthMiddleware {
 	return &AuthMiddleware{
 		svc: svc,
 	}

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alpha-omega-corp/api-gateway/config"
-	"github.com/alpha-omega-corp/api-gateway/pkg/authentication"
+	"github.com/alpha-omega-corp/api-gateway/pkg/auth"
 	"github.com/alpha-omega-corp/api-gateway/pkg/docker"
 	"github.com/alpha-omega-corp/services/httputils"
 	"github.com/uptrace/bunrouter"
@@ -30,7 +30,7 @@ func main() {
 			reqlog.WithVerbose(true),
 		)))
 
-	authClient := *authentication.RegisterRoutes(router, &c)
+	authClient := *auth.RegisterRoutes(router, &c)
 	docker.RegisterRoutes(router, &c, &authClient)
 
 	listenAndServe(router, c.HOST)

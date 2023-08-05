@@ -1,8 +1,8 @@
-package authentication
+package auth
 
 import (
 	"github.com/alpha-omega-corp/api-gateway/config"
-	"github.com/alpha-omega-corp/api-gateway/pkg/authentication/routes"
+	"github.com/alpha-omega-corp/api-gateway/pkg/auth/routes"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
