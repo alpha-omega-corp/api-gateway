@@ -1,9 +1,8 @@
-module api-gateway
+module github.com/alpha-omega-corp/api-gateway
 
 go 1.20
 
 require (
-	github.com/alpha-omega-corp/api-gateway v0.0.0-20230805092842-ac88427fc8ea
 	github.com/alpha-omega-corp/authentication-svc v0.0.0-20230805092052-7f5b537d2d64
 	github.com/alpha-omega-corp/docker-svc v0.0.0-20230805113604-ce26de973205
 	github.com/alpha-omega-corp/services v0.0.0-20230805111941-84cbc296d601
