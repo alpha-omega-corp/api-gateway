@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/alpha-omega-corp/authentication-svc v0.0.0-20230805092052-7f5b537d2d64
-	github.com/alpha-omega-corp/docker-svc v0.0.0-20230805115102-67ab5401e378
+	github.com/alpha-omega-corp/docker-svc v0.0.0-20230806071734-2b3213ac0f96
 	github.com/alpha-omega-corp/services v0.0.0-20230805111941-84cbc296d601
 	github.com/spf13/viper v1.16.0
 	github.com/uptrace/bunrouter v1.0.20
