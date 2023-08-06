@@ -25,6 +25,7 @@ func main() {
 
 	router := bunrouter.New(
 		bunrouter.WithMiddleware(bunrouterotel.NewMiddleware()),
+		bunrouter.WithMiddleware(errorHandler),
 		bunrouter.WithMiddleware(reqlog.NewMiddleware(
 			reqlog.WithEnabled(true),
 			reqlog.WithVerbose(true),
@@ -71,4 +72,21 @@ func awaitSignal() os.Signal {
 		syscall.SIGTERM,
 	)
 	return <-ch
+}
+
+func errorHandler(next bunrouter.HandlerFunc) bunrouter.HandlerFunc {
+	return func(w http.ResponseWriter, req bunrouter.Request) error {
+		err := next(w, req)
+		if err == nil {
+			return nil
+		}
+
+		httpErr := httputils.From(err, true)
+		if httpErr.Status != 0 {
+			w.WriteHeader(httpErr.Status)
+		}
+		_ = bunrouter.JSON(w, httpErr)
+
+		return err
+	}
 }

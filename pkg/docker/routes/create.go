@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/alpha-omega-corp/docker-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
@@ -26,6 +27,8 @@ func CreateContainerHandler(w http.ResponseWriter, req bunrouter.Request, s prot
 	if err != nil {
 		return err
 	}
+
+	fmt.Print(res)
 
 	return bunrouter.JSON(w, res)
 }

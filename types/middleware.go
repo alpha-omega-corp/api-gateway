@@ -29,12 +29,17 @@ func (m *AuthMiddleware) Auth(next bunrouter.HandlerFunc) bunrouter.HandlerFunc 
 
 		token := strings.Split(header, "Bearer ")[1]
 
-		_, err := m.svc.Client.Validate(req.Context(), &proto.ValidateRequest{
+		res, err := m.svc.Client.Validate(req.Context(), &proto.ValidateRequest{
 			Token: token,
 		})
 
 		if err != nil {
 			return err
+		}
+
+		if int(res.GetStatus()) == http.StatusForbidden {
+			w.WriteHeader(http.StatusForbidden)
+			return errors.New("invalid token")
 		}
 
 		return next(w, req)

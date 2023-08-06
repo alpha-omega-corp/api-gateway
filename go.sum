@@ -40,8 +40,6 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/alpha-omega-corp/authentication-svc v0.0.0-20230805092052-7f5b537d2d64 h1:BAVJkxGftNGzdTVqTiEe6FHO8IGFUGDWGRflFeSdlJU=
 github.com/alpha-omega-corp/authentication-svc v0.0.0-20230805092052-7f5b537d2d64/go.mod h1:4DPVMqVKnfYApnh4urFjkmI4zi2Z9KWu3EBtedABoTc=
-github.com/alpha-omega-corp/docker-svc v0.0.0-20230805113604-ce26de973205 h1:732xBKSwX+6ziSNYHeKuQkPyc8ZGVMgi1nAMhk73iG0=
-github.com/alpha-omega-corp/docker-svc v0.0.0-20230805113604-ce26de973205/go.mod h1:euamoLxbt/V3g+VZMX478GOkBGqPdtJ1WFOwoqAcsXM=
 github.com/alpha-omega-corp/docker-svc v0.0.0-20230805115102-67ab5401e378 h1:yNAC2DSnL3AbPQ9Ln7wrVPvW8hwsHGtP9woThkg47i4=
 github.com/alpha-omega-corp/docker-svc v0.0.0-20230805115102-67ab5401e378/go.mod h1:/Mjfkph5Y7FmK9JMUD6Fg4mtjyJJj0txkNXXAsC1Jps=
 github.com/alpha-omega-corp/services v0.0.0-20230805111941-84cbc296d601 h1:hbMxx2vCS8rt9bIR60LNrf1DxtbJF0j2t1O0QFumK3w=
