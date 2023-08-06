@@ -3,7 +3,7 @@ package auth
 import (
 	"fmt"
 	"github.com/alpha-omega-corp/api-gateway/config"
-	"github.com/alpha-omega-corp/authentication-svc/proto"
+	"github.com/alpha-omega-corp/auth-svc/proto"
 	"google.golang.org/grpc"
 )
 

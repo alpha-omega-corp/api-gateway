@@ -3,7 +3,7 @@ package types
 import (
 	"errors"
 	"github.com/alpha-omega-corp/api-gateway/pkg/auth"
-	"github.com/alpha-omega-corp/authentication-svc/proto"
+	"github.com/alpha-omega-corp/auth-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 	"strings"

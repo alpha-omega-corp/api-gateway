@@ -14,6 +14,7 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Config) *ServiceClient {
 
 	r.POST("/login", svc.Login)
 	r.POST("/register", svc.Register)
+	r.POST("/validate", svc.Validate)
 
 	return svc
 }
@@ -27,5 +28,5 @@ func (svc *ServiceClient) Register(w http.ResponseWriter, req bunrouter.Request)
 }
 
 func (svc *ServiceClient) Validate(w http.ResponseWriter, req bunrouter.Request) error {
-	return routes.RegisterHandler(w, req, svc.Client)
+	return routes.ValidateHandler(w, req, svc.Client)
 }

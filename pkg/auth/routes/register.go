@@ -2,7 +2,7 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/alpha-omega-corp/authentication-svc/proto"
+	"github.com/alpha-omega-corp/auth-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )

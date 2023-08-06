@@ -26,6 +26,7 @@ func main() {
 	router := bunrouter.New(
 		bunrouter.WithMiddleware(bunrouterotel.NewMiddleware()),
 		bunrouter.WithMiddleware(errorHandler),
+		bunrouter.WithMiddleware(corsMiddleware),
 		bunrouter.WithMiddleware(reqlog.NewMiddleware(
 			reqlog.WithEnabled(true),
 			reqlog.WithVerbose(true),
@@ -88,5 +89,29 @@ func errorHandler(next bunrouter.HandlerFunc) bunrouter.HandlerFunc {
 		_ = bunrouter.JSON(w, httpErr)
 
 		return err
+	}
+}
+
+func corsMiddleware(next bunrouter.HandlerFunc) bunrouter.HandlerFunc {
+	return func(w http.ResponseWriter, req bunrouter.Request) error {
+		origin := req.Header.Get("Origin")
+		if origin == "" {
+			return next(w, req)
+		}
+
+		h := w.Header()
+
+		h.Set("Access-Control-Allow-Origin", origin)
+		h.Set("Access-Control-Allow-Credentials", "true")
+
+		// CORS preflight.
+		if req.Method == http.MethodOptions {
+			h.Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,HEAD")
+			h.Set("Access-Control-Allow-Headers", "authorization,content-type")
+			h.Set("Access-Control-Max-Age", "86400")
+			return nil
+		}
+
+		return next(w, req)
 	}
 }
