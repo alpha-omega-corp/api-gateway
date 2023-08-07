@@ -104,7 +104,6 @@ func corsMiddleware(next bunrouter.HandlerFunc) bunrouter.HandlerFunc {
 		h.Set("Access-Control-Allow-Origin", origin)
 		h.Set("Access-Control-Allow-Credentials", "true")
 
-		// CORS preflight.
 		if req.Method == http.MethodOptions {
 			h.Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,HEAD")
 			h.Set("Access-Control-Allow-Headers", "authorization,content-type")
