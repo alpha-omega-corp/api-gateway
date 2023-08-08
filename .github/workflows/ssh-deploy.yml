@@ -19,8 +19,6 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: connect to server
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
-      - name: go to workdir
-        run:  cd ${{ secrets.WORK_DIR }}
       - name: git clone
         run: git clone https://github.com/alpha-omega-corp/api-gateway.git
       - name: cleanup
