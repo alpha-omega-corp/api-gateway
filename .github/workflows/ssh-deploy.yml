@@ -1,28 +1,19 @@
-on:
-  push:
-    branches:
-      - production
-  workflow_dispatch:
-
-env:
-  PROJECT_NAME: api-gateway
-  API_GATE_WAY_REPOSITORY: https://github.com/alpha-omega-corp/api-gateway.git
-
+name: remote ssh command
+on: [push]
 jobs:
-  run_pull:
-    name: run pull
-    runs-on: ubuntu-latest
 
+  build:
+    name: Build
+    runs-on: ubuntu-latest
     steps:
-      - name: install ssh keys
-        # check this thread to understand why its needed:
-        # https://stackoverflow.com/a/70447517
+      - name : installing ssh keys
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-      - name: connect and clone
-        run:  |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && if [ -d "api-gateway" ]; then cd api-gateway && git pull --rebase && exit; else git clone https://github.com/alpha-omega-corp/api-gateway && exit; fi"
-      - name: cleanup
-        run: rm -rf ~/.ssh
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: 22
+          script: whoami
