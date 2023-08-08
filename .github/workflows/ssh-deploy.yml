@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 env:
+  PROJECT_NAME: api-gateway
   API_GATE_WAY_REPOSITORY: https://github.com/alpha-omega-corp/api-gateway.git
 
 jobs:
@@ -21,6 +22,9 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: connect and clone
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git clone $API_GATE_WAY_REPOSITORY && exit"
+        run:  |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          cd ${{ secrets.WORK_DIR }}
+          if [ -d "$PROJECT_NAME" ]; then cd $PROJECT_NAME && git pull --rebase && exit; else git clone $API_GATE_WAY_REPOSITORY && exit; fi
       - name: cleanup
         run: rm -rf ~/.ssh
