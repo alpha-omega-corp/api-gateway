@@ -17,6 +17,7 @@ import (
 	"time"
 )
 
+// @test
 func main() {
 	c, err := config.LoadConfig()
 	if err != nil {
