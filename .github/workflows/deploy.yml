@@ -1,5 +1,12 @@
 name: remote ssh deployment
 on: [ push ]
+
+env:
+  PROJECT_NAME: api-gateway
+  SERVICES_PATH: /etc/systemd/system
+  REPOSITORY: https://github.com/alpha-omega-corp/api-gateway
+
+
 jobs:
   build:
     name: Build
@@ -13,5 +20,26 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            whoami
-            ls
+            cd ${{ secrets.WORK_DIR }} && if [ -d "$PROJECT_NAME" ]; then cd $PROJECT_NAME && git pull --rebase && exit; else git clone $REPOSITORY && exit; fi
+            cd $SERVICES_PATH
+            if [ -f "api-gateway.service" ]; then sudo systemctl restart $PROJECT_NAME; else cat << EOF > $PROJECT_NAME.service
+              [Unit]
+              Description=nanstis.ch
+              After=network.target
+              
+              [Service]
+              User=nanstis
+              WorkingDirectory=${server_destination}/dist
+              Environment=NODE_ENV=production
+              ExecStart=/home/nanstis/.nvm/versions/node/v20.0.0/bin/node index.js
+              Restart=always
+              SyslogIdentifier=nanstis-api
+              
+              [Install]
+              WantedBy=multi-user.target
+              EOF
+            
+              sudo systemctl daemon-reload
+              sudo systemctl enable $PROJECT_NAME
+              sudo systemctl start $PROJECT_NAME;
+            fi
