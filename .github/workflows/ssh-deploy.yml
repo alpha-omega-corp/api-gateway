@@ -25,6 +25,10 @@ jobs:
         run:  |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           cd ${{ secrets.WORK_DIR }}
-          if [ -d "$PROJECT_NAME" ]; then cd $PROJECT_NAME && git pull --rebase && exit; else git clone $API_GATE_WAY_REPOSITORY && exit; fi
+          if [ -d "$PROJECT_NAME" ]; then \
+            cd $PROJECT_NAME && git pull --rebase && exit; \
+          else \
+            git clone $API_GATE_WAY_REPOSITORY && exit; \
+          fi
       - name: cleanup
         run: rm -rf ~/.ssh
