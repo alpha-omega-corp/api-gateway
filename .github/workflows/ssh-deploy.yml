@@ -23,12 +23,6 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: connect and clone
         run:  |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
-          cd ${{ secrets.WORK_DIR }}
-          if [ -d "$PROJECT_NAME" ]; then \
-            cd $PROJECT_NAME && git pull --rebase && exit; \
-          else \
-            git clone $API_GATE_WAY_REPOSITORY && exit; \
-          fi
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && if [ -d "api-gateway" ]; then cd api-gateway && git pull --rebase && exit; else git clone https://github.com/alpha-omega-corp/api-gateway && exit; fi"
       - name: cleanup
         run: rm -rf ~/.ssh
