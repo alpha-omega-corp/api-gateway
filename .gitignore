@@ -1,3 +1,3 @@
 .idea
-pkg/**/proto/*.pb.go
+pkg/config/envs/dev.yaml
 bin
