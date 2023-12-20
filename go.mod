@@ -3,7 +3,7 @@ module github.com/alpha-omega-corp/api-gateway
 go 1.21
 
 require (
-	github.com/alpha-omega-corp/auth-svc v0.0.0-20231219115735-32d95fc776d0
+	github.com/alpha-omega-corp/auth-svc v0.0.0-20231219124252-9901b80a7dfc
 	github.com/alpha-omega-corp/docker-svc v0.0.0-20231209162046-943e096384a3
 	github.com/alpha-omega-corp/services v0.0.0-20231215110614-e302486c3ded
 	github.com/spf13/viper v1.18.1

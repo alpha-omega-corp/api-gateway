@@ -53,7 +53,6 @@ func UpdateUserHandler(w http.ResponseWriter, req bunrouter.Request, s proto.Aut
 		return err
 	}
 
-	fmt.Print(data.Roles)
 	res, err := s.UpdateUser(req.Context(), &proto.UpdateUserRequest{
 		Id:    userId,
 		Name:  data.Name,

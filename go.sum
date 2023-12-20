@@ -1,5 +1,5 @@
-github.com/alpha-omega-corp/auth-svc v0.0.0-20231219115735-32d95fc776d0 h1:uZfYK+mspF6vmgsn0KDsb0oaEum8b+8yx07+rl2uuQI=
-github.com/alpha-omega-corp/auth-svc v0.0.0-20231219115735-32d95fc776d0/go.mod h1:uTHT4eRhLVgOJPdlVK4e5q+XfizP5xNkoQUExEqEtSo=
+github.com/alpha-omega-corp/auth-svc v0.0.0-20231219124252-9901b80a7dfc h1:f5k6lKegoYQOZK/2sKNewJLzF11gAmHcdXpFO5nd21Y=
+github.com/alpha-omega-corp/auth-svc v0.0.0-20231219124252-9901b80a7dfc/go.mod h1:uTHT4eRhLVgOJPdlVK4e5q+XfizP5xNkoQUExEqEtSo=
 github.com/alpha-omega-corp/docker-svc v0.0.0-20231209162046-943e096384a3 h1:tZ8XcpfsQp5ikP7Ay/wglhysoZ6/xJQkho7uWIufBlo=
 github.com/alpha-omega-corp/docker-svc v0.0.0-20231209162046-943e096384a3/go.mod h1:/6Q+5K3ls6imx060QGKd7BE3mwERLMhZfbhUQ7z9L+k=
 github.com/alpha-omega-corp/services v0.0.0-20231215110614-e302486c3ded h1:Z9XfB7DSY5IHPMoKnMqHhN+iVMfT87kaq5PwFR1M+I8=
