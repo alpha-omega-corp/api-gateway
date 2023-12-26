@@ -9,5 +9,8 @@ server:
 build:
 	go build -o bin/api-gateway cmd/main.go
 
-make run:
+run:
 	bin/api-gateway
+
+gateway:
+	bash ./scripts/boot.bash
