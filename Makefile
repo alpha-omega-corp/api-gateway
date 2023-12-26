@@ -13,4 +13,4 @@ run:
 	bin/api-gateway
 
 gateway:
-	bash ./scripts/boot.bash
+	bash ./scripts/boot
