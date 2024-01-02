@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/alpha-omega-corp/auth-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
@@ -34,7 +33,6 @@ func GetUserPermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s p
 func GetUsersHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
 	res, err := s.GetUsers(req.Context(), &proto.GetUsersRequest{})
 
-	fmt.Print(res)
 	if err != nil {
 		return err
 	}

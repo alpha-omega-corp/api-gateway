@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/alpha-omega-corp/api-gateway/config"
 	"github.com/alpha-omega-corp/api-gateway/pkg/auth"
 	"github.com/alpha-omega-corp/api-gateway/pkg/docker"
 	"github.com/alpha-omega-corp/services/httputils"
+	"github.com/alpha-omega-corp/services/server"
+	"github.com/spf13/viper"
+	_ "github.com/spf13/viper/remote"
 	"github.com/uptrace/bunrouter"
 	"github.com/uptrace/bunrouter/extra/bunrouterotel"
 	"github.com/uptrace/bunrouter/extra/reqlog"
@@ -18,10 +20,8 @@ import (
 )
 
 func main() {
-	c, err := config.LoadConfig()
-	if err != nil {
-		panic(err)
-	}
+	v := viper.New()
+	cManager := server.NewConfigManager(v)
 
 	router := bunrouter.New(
 		bunrouter.WithMiddleware(bunrouterotel.NewMiddleware()),
@@ -32,10 +32,15 @@ func main() {
 			reqlog.WithVerbose(true),
 		)))
 
-	authClient := *auth.RegisterRoutes(router, &c)
-	docker.RegisterRoutes(router, &c, &authClient)
+	c, err := cManager.HostsConfig()
+	if err != nil {
+		panic(err)
+	}
 
-	listenAndServe(router, c.HOST)
+	authClient := *auth.RegisterRoutes(router, &c.Auth)
+	docker.RegisterRoutes(router, &c.Docker, &authClient)
+
+	listenAndServe(router, c.Gateway.Host)
 }
 
 func listenAndServe(r *bunrouter.Router, host string) {

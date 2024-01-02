@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/alpha-omega-corp/auth-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
@@ -19,11 +18,9 @@ type CreatePermissionsRequestBody struct {
 
 func GetPermissionServicesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
 	res, err := s.GetPermServices(req.Context(), &proto.GetPermServicesRequest{})
-
 	if err != nil {
 		return err
 	}
-	fmt.Print(res)
 
 	return bunrouter.JSON(w, res)
 }

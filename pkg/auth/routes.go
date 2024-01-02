@@ -1,13 +1,13 @@
 package auth
 
 import (
-	"github.com/alpha-omega-corp/api-gateway/config"
 	"github.com/alpha-omega-corp/api-gateway/pkg/auth/routes"
+	"github.com/alpha-omega-corp/services/config"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
 
-func RegisterRoutes(r *bunrouter.Router, c *config.Config) *ServiceClient {
+func RegisterRoutes(r *bunrouter.Router, c *config.Host) *ServiceClient {
 	svc := &ServiceClient{
 		Client: NewClient(c),
 	}
@@ -22,7 +22,7 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Config) *ServiceClient {
 	r.GET("/users", svc.GetUsers)
 	r.POST("/user/:id", svc.UpdateUser)
 
-	r.GET("/permission/services", svc.GetPermissionServices)
+	r.GET("/permission/pkg", svc.GetPermissionServices)
 
 	r.POST("/permission", svc.CreatePermissions)
 	r.GET("/permission/:serviceId", svc.GetPermissions)

@@ -2,116 +2,25 @@ package routes
 
 import (
 	"bytes"
+	"encoding/json"
 	"github.com/alpha-omega-corp/docker-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"io"
 	"mime/multipart"
 	"net/http"
-	"strconv"
 )
 
 type CreateContainerRequestBody struct {
 	Dockerfile *multipart.FileHeader `form:"dockerfile"`
 }
 
-func GetContainerLogsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	res, err := s.GetContainerLogs(req.Context(), &proto.GetContainerLogsRequest{
-		ContainerId: req.Params().ByName("id"),
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
+type CreatePackageContainerRequestBody struct {
+	PackageId     int64  `json:"id"`
+	ContainerName string `json:"ctName"`
 }
 
-func GetContainersHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	res, err := s.GetContainers(req.Context(), &proto.GetContainersRequest{})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func GetPackagesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	res, err := s.GetPackages(req.Context(), &proto.GetPackagesRequest{})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func GetPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	pkgId, err := strconv.ParseInt(req.Params().ByName("id"), 10, 64)
-	if err != nil {
-		return err
-	}
-
-	res, err := s.GetPackage(req.Context(), &proto.GetPackageRequest{
-		Id: pkgId,
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func DeletePackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	pkgId, err := strconv.ParseInt(req.Params().ByName("id"), 10, 64)
-	if err != nil {
-		return err
-	}
-
-	res, err := s.DeletePackage(req.Context(), &proto.DeletePackageRequest{
-		Id: pkgId,
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func PushPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	pkgId, err := strconv.ParseInt(req.Params().ByName("id"), 10, 64)
-	if err != nil {
-		return err
-	}
-
-	res, err := s.PushPackage(req.Context(), &proto.PushPackageRequest{
-		Id: pkgId,
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func ContainerPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	pkgId, err := strconv.ParseInt(req.Params().ByName("id"), 10, 64)
-	if err != nil {
-		return err
-	}
-
-	res, err := s.ContainerPackage(req.Context(), &proto.ContainerPackageRequest{
-		Id: pkgId,
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
+type CreatePackageRequestBody struct {
+	Tag string `json:"tag"`
 }
 
 func CreatePackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
@@ -142,6 +51,68 @@ func CreatePackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.
 		Workdir:    req.FormValue("workdir"),
 		Tag:        req.FormValue("tag"),
 	})
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetContainerLogsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	res, err := s.GetContainerLogs(req.Context(), &proto.GetContainerLogsRequest{
+		ContainerId: req.Params().ByName("id"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetContainersHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	res, err := s.GetContainers(req.Context(), &proto.GetContainersRequest{})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func DeleteContainerHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	res, err := s.DeleteContainer(req.Context(), &proto.DeleteContainerRequest{
+		ContainerId: req.Params().ByName("id"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetPackagesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	res, err := s.GetPackages(req.Context(), &proto.GetPackagesRequest{})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func ContainerPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	data := new(CreatePackageContainerRequestBody)
+	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
+		return err
+	}
+
+	res, err := s.ContainerPackage(req.Context(), &proto.ContainerPackageRequest{
+		Id:   data.PackageId,
+		Name: data.ContainerName,
+	})
+
+	if err != nil {
+		return err
+	}
 
 	return bunrouter.JSON(w, res)
 }
