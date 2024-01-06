@@ -8,6 +8,8 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type PushPackageRequestBody struct {
@@ -17,6 +19,75 @@ type PushPackageRequestBody struct {
 
 type DeletePackageRequestBody struct {
 	Tag string `json:"tag"`
+}
+
+type CreatePackageContainerRequestBody struct {
+	ContainerName string `json:"containerName"`
+}
+
+type GetPackageVersionContainers struct {
+	Path string `json:"path"`
+}
+
+func GetPackageTagsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	res, err := s.GetPackageTags(req.Context(), &proto.GetPackageTagsRequest{
+		Name: req.Params().ByName("name"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func DeletePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	versions := strings.Split(req.Params().ByName("version"), "/")
+	versionTag := versions[0]
+	versionId, _ := strconv.ParseInt(versions[1], 10, 64)
+
+	res, err := s.DeletePackageVersion(req.Context(), &proto.DeletePackageVersionRequest{
+		Name:    req.Params().ByName("name"),
+		Tag:     versionTag,
+		Version: &versionId,
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func CreatePackageContainerHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	data := new(CreatePackageContainerRequestBody)
+	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
+		return err
+	}
+
+	path := req.Params().ByName("name") + "/" + req.Params().ByName("tag")
+	res, err := s.CreatePackageContainer(req.Context(), &proto.CreatePackageContainerRequest{
+		Path: path,
+		Name: data.ContainerName,
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetPackageVersionContainersHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+	res, err := s.GetPackageVersionContainers(req.Context(), &proto.GetPackageVersionContainersRequest{
+		Path: req.Params().ByName("name") + "/" + req.Params().ByName("tag"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
 }
 
 func GetPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
@@ -81,25 +152,7 @@ func CreatePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s
 	return bunrouter.JSON(w, res)
 }
 
-func DeletePackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	data := new(DeletePackageRequestBody)
-	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
-		return err
-	}
-
-	res, err := s.DeletePackage(req.Context(), &proto.DeletePackageRequest{
-		Name: req.Params().ByName("name"),
-		Tag:  data.Tag,
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func PushPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+func PushPackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
 	data := new(PushPackageRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err

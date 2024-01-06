@@ -17,8 +17,8 @@ github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRF
 github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alpha-omega-corp/auth-svc v0.0.0-20231228142032-ecbda699807d h1:O6/p3OHPcEJfNQund0gffMTFrJiopU54QY0pWBeEjVw=
 github.com/alpha-omega-corp/auth-svc v0.0.0-20231228142032-ecbda699807d/go.mod h1:8/uhpLb7r4e3qqzME0UsaH5DekZJnCK+jnI/beagcIg=
-github.com/alpha-omega-corp/docker-svc v0.0.0-20240101124618-be187e9f64ef h1:Nadmdk4tDcJL9CgnxJ2KOLzUEn1VFrhDnWkgd3e/YaA=
-github.com/alpha-omega-corp/docker-svc v0.0.0-20240101124618-be187e9f64ef/go.mod h1:UW+nzVZ3hC9yoj9/d+SnVDbO8UDyrEf6oOIs3ZVKu0E=
+github.com/alpha-omega-corp/docker-svc v0.0.0-20240106114030-7f958493515e h1:k/4ZoBx1RVFF/CROlTlF8oJb6HM5O9X2AB4kSlhBpzs=
+github.com/alpha-omega-corp/docker-svc v0.0.0-20240106114030-7f958493515e/go.mod h1:UW+nzVZ3hC9yoj9/d+SnVDbO8UDyrEf6oOIs3ZVKu0E=
 github.com/alpha-omega-corp/services v0.0.0-20231228163435-16019c76259f h1:RowGZiO3gJwcDTs1Djp2Rh+XmNqBdFSwPOXBFE4//do=
 github.com/alpha-omega-corp/services v0.0.0-20231228163435-16019c76259f/go.mod h1:MZx+Ih9/1FsCOqlMADuIponVsA0t00bff8hsJdIp2oM=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=

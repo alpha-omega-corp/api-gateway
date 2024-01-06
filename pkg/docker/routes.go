@@ -14,14 +14,16 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Host, s *auth.ServiceClient) 
 	}
 
 	r.GET("/packages", svc.GetPackages)
-	r.POST("/packages/container", svc.ContainerPackage)
 
 	r.POST("/package", svc.CreatePackage)
 	r.GET("/package/:name", svc.GetPackage)
-	r.DELETE("/package/:name", svc.DeletePackage)
+	r.GET("/package/:name/tags", svc.GetPackageTags)
+	r.DELETE("/package/:name/*version", svc.DeletePackageVersion)
+	r.POST("/package/:name/container/:tag", svc.CreatePackageContainer)
+	r.GET("/package/:name/containers/:tag", svc.GetPackageVersionContainers)
+	r.POST("/package/:name/push", svc.PushPackageVersion)
 
 	r.POST("/package/:name", svc.CreatePackageVersion)
-	r.POST("/package/:name/push", svc.PushPackage)
 
 	r.GET("/package/:name/:tag/:file", svc.GetPackageFile)
 
@@ -30,8 +32,16 @@ func RegisterRoutes(r *bunrouter.Router, c *config.Host, s *auth.ServiceClient) 
 	r.GET("/container/:id/logs", svc.GetContainerLogs)
 }
 
-func (svc *ServiceClient) DeletePackage(w http.ResponseWriter, req bunrouter.Request) error {
-	return routes.DeletePackageHandler(w, req, svc.Client)
+func (svc *ServiceClient) GetPackageTags(w http.ResponseWriter, req bunrouter.Request) error {
+	return routes.GetPackageTagsHandler(w, req, svc.Client)
+}
+
+func (svc *ServiceClient) DeletePackageVersion(w http.ResponseWriter, req bunrouter.Request) error {
+	return routes.DeletePackageVersionHandler(w, req, svc.Client)
+}
+
+func (svc *ServiceClient) GetPackageVersionContainers(w http.ResponseWriter, req bunrouter.Request) error {
+	return routes.GetPackageVersionContainersHandler(w, req, svc.Client)
 }
 
 func (svc *ServiceClient) GetPackages(w http.ResponseWriter, req bunrouter.Request) error {
@@ -50,12 +60,12 @@ func (svc *ServiceClient) CreatePackageVersion(w http.ResponseWriter, req bunrou
 	return routes.CreatePackageVersionHandler(w, req, svc.Client)
 }
 
-func (svc *ServiceClient) PushPackage(w http.ResponseWriter, req bunrouter.Request) error {
-	return routes.PushPackageHandler(w, req, svc.Client)
+func (svc *ServiceClient) PushPackageVersion(w http.ResponseWriter, req bunrouter.Request) error {
+	return routes.PushPackageVersionHandler(w, req, svc.Client)
 }
 
-func (svc *ServiceClient) ContainerPackage(w http.ResponseWriter, req bunrouter.Request) error {
-	return routes.ContainerPackageHandler(w, req, svc.Client)
+func (svc *ServiceClient) CreatePackageContainer(w http.ResponseWriter, req bunrouter.Request) error {
+	return routes.CreatePackageContainerHandler(w, req, svc.Client)
 }
 
 func (svc *ServiceClient) GetContainerLogs(w http.ResponseWriter, req bunrouter.Request) error {

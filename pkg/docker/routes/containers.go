@@ -2,7 +2,6 @@ package routes
 
 import (
 	"bytes"
-	"encoding/json"
 	"github.com/alpha-omega-corp/docker-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"io"
@@ -12,11 +11,6 @@ import (
 
 type CreateContainerRequestBody struct {
 	Dockerfile *multipart.FileHeader `form:"dockerfile"`
-}
-
-type CreatePackageContainerRequestBody struct {
-	PackageId     int64  `json:"id"`
-	ContainerName string `json:"ctName"`
 }
 
 type CreatePackageRequestBody struct {
@@ -91,24 +85,6 @@ func DeleteContainerHandler(w http.ResponseWriter, req bunrouter.Request, s prot
 
 func GetPackagesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
 	res, err := s.GetPackages(req.Context(), &proto.GetPackagesRequest{})
-
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func ContainerPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	data := new(CreatePackageContainerRequestBody)
-	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
-		return err
-	}
-
-	res, err := s.ContainerPackage(req.Context(), &proto.ContainerPackageRequest{
-		Id:   data.PackageId,
-		Name: data.ContainerName,
-	})
 
 	if err != nil {
 		return err
