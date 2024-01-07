@@ -2,7 +2,7 @@ package docker
 
 import (
 	"fmt"
-	"github.com/alpha-omega-corp/docker-svc/proto"
+	proto "github.com/alpha-omega-corp/github-svc/proto/docker"
 	"github.com/alpha-omega-corp/services/config"
 	"google.golang.org/grpc"
 )

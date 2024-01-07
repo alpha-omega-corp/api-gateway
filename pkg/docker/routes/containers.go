@@ -2,7 +2,7 @@ package routes
 
 import (
 	"bytes"
-	"github.com/alpha-omega-corp/docker-svc/proto"
+	proto "github.com/alpha-omega-corp/github-svc/proto/docker"
 	"github.com/uptrace/bunrouter"
 	"io"
 	"mime/multipart"
