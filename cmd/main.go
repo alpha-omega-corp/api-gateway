@@ -38,8 +38,9 @@ func main() {
 		panic(err)
 	}
 
-	authClient := *user.RegisterRoutes(router, &c.Auth)
-	github.RegisterRoutes(router, &c.Docker, &authClient)
+	userClient := user.RegisterRoutes(router, &c.Auth)
+	github.RegisterRoutes(router, &c.Docker, userClient)
+
 	listenAndServe(router, c.Gateway.Host)
 }
 
