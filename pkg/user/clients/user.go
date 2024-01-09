@@ -3,15 +3,15 @@ package clients
 import (
 	"fmt"
 	"github.com/alpha-omega-corp/api-gateway/pkg/user/routes"
-	"github.com/alpha-omega-corp/auth-svc/proto"
 	"github.com/alpha-omega-corp/services/config"
+	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"google.golang.org/grpc"
 	"net/http"
 )
 
 type UserServiceClient interface {
-	Client() proto.AuthServiceClient
+	Client() proto.UserServiceClient
 
 	Login(w http.ResponseWriter, req bunrouter.Request) error
 	Register(w http.ResponseWriter, req bunrouter.Request) error
@@ -29,7 +29,7 @@ type UserServiceClient interface {
 type userService struct {
 	UserServiceClient
 
-	client proto.AuthServiceClient
+	client proto.UserServiceClient
 }
 
 func NewUserService(c *config.Host) UserServiceClient {
@@ -39,10 +39,10 @@ func NewUserService(c *config.Host) UserServiceClient {
 		fmt.Println("Could not connect:", err)
 	}
 
-	return &userService{client: proto.NewAuthServiceClient(conn)}
+	return &userService{client: proto.NewUserServiceClient(conn)}
 }
 
-func (svc *userService) Client() proto.AuthServiceClient {
+func (svc *userService) Client() proto.UserServiceClient {
 	return svc.client
 }
 

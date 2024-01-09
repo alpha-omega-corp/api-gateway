@@ -8,7 +8,7 @@ import (
 func NewCorsMiddleware() bunrouter.MiddlewareFunc {
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:4000"},
-		AllowedMethods:   []string{"GET", "PUT", "POST", "DELETE", "HEAD", "OPTIONS"},
+		AllowedMethods:   []string{"GET", "PUT", "POST", "DELETE"},
 		AllowCredentials: true,
 	})
 
