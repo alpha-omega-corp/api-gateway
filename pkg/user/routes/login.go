@@ -2,7 +2,7 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/alpha-omega-corp/auth-svc/proto"
+	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
@@ -12,7 +12,7 @@ type LoginRequestBody struct {
 	Password string `json:"password"`
 }
 
-func LoginHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func LoginHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	data := new(LoginRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err

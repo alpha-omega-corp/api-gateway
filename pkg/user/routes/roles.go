@@ -2,7 +2,7 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/alpha-omega-corp/auth-svc/proto"
+	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 )
@@ -16,7 +16,7 @@ type AssignRoleRequestBody struct {
 	RoleId int64 `json:"role"`
 }
 
-func CreateRoleHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func CreateRoleHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	data := new(CreateRoleRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err
@@ -33,7 +33,7 @@ func CreateRoleHandler(w http.ResponseWriter, req bunrouter.Request, s proto.Aut
 	return bunrouter.JSON(w, res)
 }
 
-func GetRolesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func GetRolesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	res, err := s.GetRoles(req.Context(), &proto.GetRolesRequest{})
 
 	if err != nil {
@@ -43,7 +43,7 @@ func GetRolesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthS
 	return bunrouter.JSON(w, res)
 }
 
-func AssignRoleHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func AssignRoleHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	data := new(AssignRoleRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err

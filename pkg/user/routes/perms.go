@@ -2,7 +2,7 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/alpha-omega-corp/auth-svc/proto"
+	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 	"strconv"
@@ -16,7 +16,7 @@ type CreatePermissionsRequestBody struct {
 	CanManage bool  `json:"canManage"`
 }
 
-func GetPermissionServicesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func GetPermissionServicesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	res, err := s.GetPermServices(req.Context(), &proto.GetPermServicesRequest{})
 	if err != nil {
 		return err
@@ -25,7 +25,7 @@ func GetPermissionServicesHandler(w http.ResponseWriter, req bunrouter.Request, 
 	return bunrouter.JSON(w, res)
 }
 
-func CreatePermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func CreatePermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	data := new(CreatePermissionsRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err
@@ -46,7 +46,7 @@ func CreatePermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s pr
 	return bunrouter.JSON(w, res)
 }
 
-func GetPermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.AuthServiceClient) error {
+func GetPermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	serviceId, err := strconv.ParseInt(req.Params().ByName("serviceId"), 10, 64)
 	if err != nil {
 		return err

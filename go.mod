@@ -5,6 +5,8 @@ go 1.21
 require (
 	github.com/alpha-omega-corp/github-svc v0.0.0-20240109083042-a7ffd273246c
 	github.com/alpha-omega-corp/services v0.0.0-20231228163435-16019c76259f
+	github.com/alpha-omega-corp/user-svc v0.0.0-20240109172801-b9fa831d7320
+	github.com/rs/cors v1.10.1
 	github.com/spf13/viper v1.18.2
 	github.com/uptrace/bunrouter v1.0.21
 	github.com/uptrace/bunrouter/extra/bunrouterotel v1.0.21
@@ -18,7 +20,6 @@ require (
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	cloud.google.com/go/firestore v1.14.0 // indirect
 	cloud.google.com/go/longrunning v0.5.4 // indirect
-	github.com/alpha-omega-corp/user-svc v0.0.0-20240109172306-9d43f3eb1605 // indirect
 	github.com/armon/go-metrics v0.4.1 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
@@ -54,7 +55,6 @@ require (
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/rs/cors v1.10.1 // indirect
 	github.com/sagikazarmark/crypt v0.17.0 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect

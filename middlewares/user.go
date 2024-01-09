@@ -4,7 +4,7 @@ import (
 	"errors"
 	userClients "github.com/alpha-omega-corp/api-gateway/pkg/user/clients"
 
-	"github.com/alpha-omega-corp/auth-svc/proto"
+	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"net/http"
 	"strings"
