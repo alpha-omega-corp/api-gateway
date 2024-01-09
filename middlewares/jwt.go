@@ -11,12 +11,12 @@ import (
 )
 
 type AuthMiddleware struct {
-	client userClients.UserServiceClient
+	service userClients.UserServiceClient
 }
 
-func NewAuthMiddleware(userClient userClients.UserServiceClient) *AuthMiddleware {
+func NewAuthMiddleware(userService userClients.UserServiceClient) *AuthMiddleware {
 	return &AuthMiddleware{
-		client: userClient,
+		service: userService,
 	}
 }
 
@@ -25,7 +25,7 @@ func (middleware *AuthMiddleware) Auth(next bunrouter.HandlerFunc) bunrouter.Han
 		authHeader := req.Header.Get("Authorization")
 		token := strings.Split(authHeader, "Bearer ")[1]
 
-		res, err := middleware.client.Client().Validate(req.Context(), &proto.ValidateRequest{
+		res, err := middleware.service.Client().Validate(req.Context(), &proto.ValidateRequest{
 			Token: token,
 		})
 
