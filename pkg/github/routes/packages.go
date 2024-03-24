@@ -3,7 +3,8 @@ package routes
 import (
 	"bytes"
 	"encoding/json"
-	proto "github.com/alpha-omega-corp/github-svc/proto/docker"
+	"fmt"
+	proto "github.com/alpha-omega-corp/github-svc/proto/github"
 	"github.com/uptrace/bunrouter"
 	"io"
 	"mime/multipart"
@@ -29,7 +30,23 @@ type GetPackageVersionContainers struct {
 	Path string `json:"path"`
 }
 
-func GetPackageTagsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+type CreatePackageRequestBody struct {
+	Name string `json:"name"`
+}
+
+func DeletePackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
+	res, err := s.DeletePackage(req.Context(), &proto.DeletePackageRequest{
+		Name: req.Params().ByName("name"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetPackageTagsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
 	res, err := s.GetPackageTags(req.Context(), &proto.GetPackageTagsRequest{
 		Name: req.Params().ByName("name"),
 	})
@@ -41,7 +58,7 @@ func GetPackageTagsHandler(w http.ResponseWriter, req bunrouter.Request, s proto
 	return bunrouter.JSON(w, res)
 }
 
-func DeletePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+func DeletePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
 	versions := strings.Split(req.Params().ByName("version"), "/")
 	versionTag := versions[0]
 	versionId, _ := strconv.ParseInt(versions[1], 10, 64)
@@ -59,16 +76,15 @@ func DeletePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s
 	return bunrouter.JSON(w, res)
 }
 
-func CreatePackageContainerHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	data := new(CreatePackageContainerRequestBody)
+func CreatePackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
+	data := new(CreatePackageRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err
 	}
 
-	path := req.Params().ByName("name") + "/" + req.Params().ByName("tag")
-	res, err := s.CreatePackageContainer(req.Context(), &proto.CreatePackageContainerRequest{
-		Path: path,
-		Name: data.ContainerName,
+	fmt.Print(data.Name)
+	res, err := s.CreatePackage(req.Context(), &proto.CreatePackageRequest{
+		Name: data.Name,
 	})
 
 	if err != nil {
@@ -78,10 +94,8 @@ func CreatePackageContainerHandler(w http.ResponseWriter, req bunrouter.Request,
 	return bunrouter.JSON(w, res)
 }
 
-func GetPackageVersionContainersHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
-	res, err := s.GetPackageVersionContainers(req.Context(), &proto.GetPackageVersionContainersRequest{
-		Path: req.Params().ByName("name") + "/" + req.Params().ByName("tag"),
-	})
+func GetPackagesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
+	res, err := s.GetPackages(req.Context(), &proto.GetPackagesRequest{})
 
 	if err != nil {
 		return err
@@ -90,7 +104,7 @@ func GetPackageVersionContainersHandler(w http.ResponseWriter, req bunrouter.Req
 	return bunrouter.JSON(w, res)
 }
 
-func GetPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+func GetPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
 	name := req.Params().ByName("name")
 
 	res, err := s.GetPackage(req.Context(), &proto.GetPackageRequest{
@@ -104,7 +118,7 @@ func GetPackageHandler(w http.ResponseWriter, req bunrouter.Request, s proto.Doc
 	return bunrouter.JSON(w, res)
 }
 
-func GetPackageFileHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+func GetPackageFileHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
 	p := req.Params().ByName("name") + "/" + req.Params().ByName("tag")
 
 	res, err := s.GetPackageFile(req.Context(), &proto.GetPackageFileRequest{
@@ -119,7 +133,7 @@ func GetPackageFileHandler(w http.ResponseWriter, req bunrouter.Request, s proto
 	return bunrouter.JSON(w, res)
 }
 
-func CreatePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+func CreatePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
 	contents, handler, err := req.FormFile("content")
 
 	defer func(file multipart.File) {
@@ -152,7 +166,7 @@ func CreatePackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s
 	return bunrouter.JSON(w, res)
 }
 
-func PushPackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.DockerServiceClient) error {
+func PushPackageVersionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.GithubServiceClient) error {
 	data := new(PushPackageRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err

@@ -3,5 +3,5 @@
 - (HTTP) [https://github.com/alpha-omega-corp/api-gateway](https://github.com/alpha-omega-corp/api-gateway)
 
 ### SERVICES
-- (TCP) [https://github.com/alpha-omega-corp/authentication-svc](https://github.com/alpha-omega-corp/authentication-svc)
-- (TCP) [https://github.com/alpha-omega-corp/docker-svc](https://github.com/alpha-omega-corp/docker-svc)
+- (TCP) [https://github.com/alpha-omega-corp/user-svc](https://github.com/alpha-omega-corp/user-svc)
+- (TCP) [https://github.com/alpha-omega-corp/github-svc](https://github.com/alpha-omega-corp/github-svc)

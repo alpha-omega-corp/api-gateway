@@ -32,7 +32,6 @@ func (middleware *AuthMiddleware) Auth(next bunrouter.HandlerFunc) bunrouter.Han
 		if err != nil {
 			return err
 		}
-
 		if int(res.GetStatus()) == http.StatusForbidden {
 			w.WriteHeader(http.StatusForbidden)
 			return errors.New("invalid token")

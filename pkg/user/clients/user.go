@@ -3,7 +3,7 @@ package clients
 import (
 	"fmt"
 	"github.com/alpha-omega-corp/api-gateway/pkg/user/routes"
-	"github.com/alpha-omega-corp/services/config"
+	"github.com/alpha-omega-corp/services/types"
 	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
 	"google.golang.org/grpc"
@@ -32,8 +32,8 @@ type userService struct {
 	client proto.UserServiceClient
 }
 
-func NewUserService(c *config.Host) UserServiceClient {
-	conn, err := grpc.Dial(c.Host, grpc.WithInsecure())
+func NewUserService(c types.ConfigHost) UserServiceClient {
+	conn, err := grpc.Dial(c.Url, grpc.WithInsecure())
 
 	if err != nil {
 		fmt.Println("Could not connect:", err)
