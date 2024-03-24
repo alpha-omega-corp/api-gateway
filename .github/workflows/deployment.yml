@@ -10,7 +10,7 @@ jobs:
         env:
           INPUT_NAME: ${{ secrets.APP_GATEWAY_NAME }}
           INPUT_REPO: ${{ secrets.APP_GATEWAY_REPO }}
-          INPUT_PATH: ${{ secrets.APPS_PATH }}
+          INPUT_PATH: ${{ secrets.ALPHOMEGA_PATH }}
           INPUT_SECRET: ${{ secrets.SSH_PASSWORD }}
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -24,5 +24,3 @@ jobs:
             cd $INPUT_PATH/$INPUT_NAME/scripts && echo $INPUT_SECRET | sudo -S bash ./service $INPUT_PATH $INPUT_NAME
             echo $INPUT_SECRET | sudo -S systemctl enable $INPUT_NAME
             echo $INPUT_SECRET | sudo -S systemctl start $INPUT_NAME
-
-            
