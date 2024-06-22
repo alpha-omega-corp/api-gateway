@@ -15,6 +15,10 @@ github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuy
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
+github.com/alpha-omega-corp/github-svc v0.0.0-20240119085725-56c3062ba1eb h1:e5o6qxx26h74nEFfr2Mk3yilokGBgYxEiAW8fqJWEYE=
+github.com/alpha-omega-corp/github-svc v0.0.0-20240119085725-56c3062ba1eb/go.mod h1:UrvyXzrqwxpNPgPta70pqpytz33OFxso7lkBw6azO+I=
+github.com/alpha-omega-corp/github-svc v0.0.0-20240324150720-e7fc1fbb524f h1:hplrGr3Y2HVWgJaEWTG4ufzNxlMIzALKe1lOPm6miZA=
+github.com/alpha-omega-corp/github-svc v0.0.0-20240324150720-e7fc1fbb524f/go.mod h1:UrvyXzrqwxpNPgPta70pqpytz33OFxso7lkBw6azO+I=
 github.com/alpha-omega-corp/services v0.0.0-20240324144213-d20902053154 h1:iv9NhTdIQrFREHFFMppLu4MeLoCsxfqaR48ZMSwtSLg=
 github.com/alpha-omega-corp/services v0.0.0-20240324144213-d20902053154/go.mod h1:xFDpMFcEyyFg3y7F/36bCbkZ6IFSJYUkws4/NqgcIQM=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=

@@ -3,7 +3,7 @@ module github.com/alpha-omega-corp/api-gateway
 go 1.21
 
 require (
-	github.com/alpha-omega-corp/github-svc v0.0.0-20240119085725-56c3062ba1eb
+	github.com/alpha-omega-corp/github-svc v0.0.0-20240324150720-e7fc1fbb524f
 	github.com/alpha-omega-corp/services v0.0.0-20240324144213-d20902053154
 	github.com/alpha-omega-corp/user-svc v0.0.0-20240119085747-394cb033c8ec
 	github.com/rs/cors v1.10.1
@@ -17,8 +17,6 @@ require (
 replace github.com/alpha-omega-corp/services v0.0.0-20240119085654-661849b2eb2a => ../services
 
 replace github.com/alpha-omega-corp/user-svc v0.0.0-20240119085747-394cb033c8ec => ../user-svc
-
-replace github.com/alpha-omega-corp/github-svc v0.0.0-20240119085725-56c3062ba1eb => ../github-svc
 
 require (
 	cloud.google.com/go v0.112.0 // indirect
