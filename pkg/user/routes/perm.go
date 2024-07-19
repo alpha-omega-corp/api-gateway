@@ -16,22 +16,13 @@ type CreatePermissionsRequestBody struct {
 	CanManage bool  `json:"canManage"`
 }
 
-func GetPermissionServicesHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
-	res, err := s.GetPermServices(req.Context(), &proto.GetPermServicesRequest{})
-	if err != nil {
-		return err
-	}
-
-	return bunrouter.JSON(w, res)
-}
-
-func CreatePermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
+func CreatePermissionHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	data := new(CreatePermissionsRequestBody)
 	if err := json.NewDecoder(req.Body).Decode(data); err != nil {
 		return err
 	}
 
-	res, err := s.CreatePermissions(req.Context(), &proto.CreatePermissionRequest{
+	res, err := s.CreatePermission(req.Context(), &proto.CreatePermissionRequest{
 		RoleId:    data.RoleID,
 		ServiceId: data.ServiceID,
 		CanRead:   data.CanRead,
@@ -46,7 +37,16 @@ func CreatePermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s pr
 	return bunrouter.JSON(w, res)
 }
 
-func GetPermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
+func GetServices(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
+	res, err := s.GetServices(req.Context(), &proto.GetServicesRequest{})
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetServicePermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
 	serviceId, err := strconv.ParseInt(req.Params().ByName("serviceId"), 10, 64)
 	if err != nil {
 		return err
@@ -54,6 +54,23 @@ func GetPermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto
 
 	res, err := s.GetPermissions(req.Context(), &proto.GetPermissionsRequest{
 		ServiceId: serviceId,
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return bunrouter.JSON(w, res)
+}
+
+func GetUserPermissionsHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
+	userId, err := strconv.ParseInt(req.Params().ByName("id"), 10, 64)
+	if err != nil {
+		return err
+	}
+
+	res, err := s.GetUserPermissions(req.Context(), &proto.GetUserPermissionsRequest{
+		UserId: userId,
 	})
 
 	if err != nil {

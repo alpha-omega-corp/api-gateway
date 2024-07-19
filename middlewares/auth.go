@@ -2,7 +2,7 @@ package middlewares
 
 import (
 	"errors"
-	userClients "github.com/alpha-omega-corp/api-gateway/pkg/user/clients"
+	user "github.com/alpha-omega-corp/api-gateway/pkg/user"
 
 	"github.com/alpha-omega-corp/user-svc/proto"
 	"github.com/uptrace/bunrouter"
@@ -11,10 +11,10 @@ import (
 )
 
 type AuthMiddleware struct {
-	service userClients.UserServiceClient
+	service user.Service
 }
 
-func NewAuthMiddleware(userService userClients.UserServiceClient) *AuthMiddleware {
+func NewAuthMiddleware(userService user.Service) *AuthMiddleware {
 	return &AuthMiddleware{
 		service: userService,
 	}

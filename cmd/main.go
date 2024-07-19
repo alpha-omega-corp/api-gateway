@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alpha-omega-corp/api-gateway/middlewares"
+	"github.com/alpha-omega-corp/api-gateway/pkg/user"
 	"github.com/alpha-omega-corp/services/config"
 	"github.com/alpha-omega-corp/services/httputils"
 	_ "github.com/spf13/viper/remote"
@@ -27,8 +28,8 @@ func main() {
 			reqlog.WithVerbose(true),
 		)))
 
-//	authClient := user.RegisterRoutes(router)
-//	github.RegisterRoutes(router, authClient)
+	user.RegisterRoutes(router)
+	//	github.RegisterRoutes(router, authClient)
 
 	env, err := config.NewHandler().Environment("gateway")
 	if err != nil {
