@@ -3,13 +3,13 @@ package github
 import (
 	"github.com/alpha-omega-corp/api-gateway/middlewares"
 	"github.com/alpha-omega-corp/api-gateway/pkg/github/clients"
-	user "github.com/alpha-omega-corp/api-gateway/pkg/user/clients"
+	user "github.com/alpha-omega-corp/api-gateway/pkg/user"
 	"github.com/alpha-omega-corp/services/config"
 	_ "github.com/spf13/viper/remote"
 	"github.com/uptrace/bunrouter"
 )
 
-func RegisterRoutes(r *bunrouter.Router, u user.UserServiceClient) {
+func RegisterRoutes(r *bunrouter.Router, u user.Service) {
 	jwt := middlewares.NewAuthMiddleware(u)
 	env, err := config.NewHandler().Environment("github")
 	if err != nil {

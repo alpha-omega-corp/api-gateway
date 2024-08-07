@@ -29,15 +29,31 @@ func main() {
 			reqlog.WithVerbose(true),
 		)))
 
-	user.RegisterRoutes(router)
-	docker.RegisterRoutes(router)
-	//	github.RegisterRoutes(router, authClient)
-
+	// API Gateway
 	env, err := config.NewHandler().Environment("gateway")
 	if err != nil {
 		panic(err)
 	}
 
+	// UserService
+	envUser, err := config.NewHandler().Environment("user")
+	if err != nil {
+		panic(err)
+	}
+
+	svcUser := user.NewClient(envUser.Host)
+	user.RegisterClient(svcUser, router)
+
+	// DockerService
+	envDocker, err := config.NewHandler().Environment("docker")
+	if err != nil {
+		panic(err)
+	}
+
+	svcDocker := docker.NewClient(envDocker.Host)
+	docker.RegisterClient(svcDocker, router)
+
+	// Starting...
 	listenAndServe(router, env.Host.Url)
 }
 

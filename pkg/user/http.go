@@ -1,18 +1,11 @@
 package user
 
 import (
-	"github.com/alpha-omega-corp/services/config"
 	_ "github.com/spf13/viper/remote"
 	"github.com/uptrace/bunrouter"
 )
 
-func RegisterRoutes(r *bunrouter.Router) Service {
-	env, err := config.NewHandler().Environment("user")
-	if err != nil {
-		panic(err)
-	}
-
-	svc := NewUserService(env.Host)
+func RegisterClient(svc Client, r *bunrouter.Router) Client {
 
 	r.POST("/login", svc.Login)
 	r.POST("/register", svc.Register)

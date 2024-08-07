@@ -9,25 +9,35 @@ import (
 	"net/http"
 )
 
-type Service interface {
-	CreateImage(w http.ResponseWriter, req bunrouter.Request) error
+type Client interface {
+	GetImage(w http.ResponseWriter, req bunrouter.Request) error
+	StoreImage(w http.ResponseWriter, req bunrouter.Request) error
+	BuildImage(w http.ResponseWriter, req bunrouter.Request) error
 }
 
-type dockerService struct {
-	Service
+type dockerClient struct {
+	Client
 	client proto.DockerServiceClient
 }
 
-func NewDockerService(c types.ConfigHost) Service {
+func NewClient(c types.ConfigHost) Client {
 	conn, err := grpc.Dial(c.Url, grpc.WithInsecure())
 
 	if err != nil {
 		fmt.Println("Could not connect:", err)
 	}
 
-	return &dockerService{client: proto.NewDockerServiceClient(conn)}
+	return &dockerClient{client: proto.NewDockerServiceClient(conn)}
 }
 
-func (svc *dockerService) CreateImage(w http.ResponseWriter, req bunrouter.Request) error {
-	return CreateImageHandler(w, req, svc.client)
+func (svc *dockerClient) GetImage(w http.ResponseWriter, req bunrouter.Request) error {
+	return GetImageHandler(w, req, svc.client)
+}
+
+func (svc *dockerClient) StoreImage(w http.ResponseWriter, req bunrouter.Request) error {
+	return StoreImageHandler(w, req, svc.client)
+}
+
+func (svc *dockerClient) BuildImage(w http.ResponseWriter, req bunrouter.Request) error {
+	return BuildImageHandler(w, req, svc.client)
 }

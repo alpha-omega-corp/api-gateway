@@ -3,9 +3,10 @@ module github.com/alpha-omega-corp/api-gateway
 go 1.22
 
 require (
+	github.com/alpha-omega-corp/docker-svc v0.0.0-20240801170347-93151fb2e08c
 	github.com/alpha-omega-corp/github-svc v0.0.0-20240324150720-e7fc1fbb524f
 	github.com/alpha-omega-corp/services v0.0.0-20240324144213-d20902053154
-	github.com/alpha-omega-corp/user-svc v0.0.0-20240719194329-84e48728c4d5
+	github.com/alpha-omega-corp/user-svc v0.0.0-20240724094900-82062a8cec9e
 	github.com/rs/cors v1.11.0
 	github.com/spf13/viper v1.19.0
 	github.com/uptrace/bunrouter v1.0.21
@@ -14,19 +15,18 @@ require (
 	google.golang.org/grpc v1.65.0
 )
 
-replace github.com/alpha-omega-corp/services v0.0.0-20240119085654-661849b2eb2a => ../services
-
-replace github.com/alpha-omega-corp/user-svc v0.0.0-20240119085747-394cb033c8ec => ../user-svc
-
-replace github.com/alpha-omega-corp/docker-svc v0.0.0-20240722123135-156ef5cf5848 => ../docker-svc
+replace (
+	github.com/alpha-omega-corp/docker-svc v0.0.0-20240801170347-93151fb2e08c => ../docker-svc
+	github.com/alpha-omega-corp/github-svc v0.0.0-20240324150720-e7fc1fbb524f => ../github-svc
+	github.com/alpha-omega-corp/services v0.0.0-20240324144213-d20902053154 => ../services
+	github.com/alpha-omega-corp/user-svc v0.0.0-20240724094900-82062a8cec9e => ../user-svc
+)
 
 require (
 	cloud.google.com/go v0.112.1 // indirect
-	cloud.google.com/go/compute v1.24.0 // indirect
 	cloud.google.com/go/compute/metadata v0.3.0 // indirect
 	cloud.google.com/go/firestore v1.15.0 // indirect
 	cloud.google.com/go/longrunning v0.5.5 // indirect
-	github.com/alpha-omega-corp/docker-svc v0.0.0-20240722123135-156ef5cf5848 // indirect
 	github.com/armon/go-metrics v0.4.1 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
@@ -63,7 +63,6 @@ require (
 	github.com/nats-io/nats.go v1.34.0 // indirect
 	github.com/nats-io/nkeys v0.4.7 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sagikazarmark/crypt v0.19.0 // indirect
@@ -96,12 +95,10 @@ require (
 	golang.org/x/text v0.16.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/api v0.171.0 // indirect
-	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20240213162025-012b6fc9bca9 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240701130421-f6361c86f094 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240701130421-f6361c86f094 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
-	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

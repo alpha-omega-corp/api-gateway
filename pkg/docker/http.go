@@ -1,19 +1,14 @@
 package docker
 
 import (
-	"github.com/alpha-omega-corp/services/config"
 	"github.com/uptrace/bunrouter"
 )
 
-func RegisterRoutes(r *bunrouter.Router) Service {
-	env, err := config.NewHandler().Environment("docker")
-	if err != nil {
-		panic(err)
-	}
+func RegisterClient(svc Client, r *bunrouter.Router) Client {
 
-	svc := NewDockerService(env.Host)
-
-	r.POST("/docker/image", svc.CreateImage)
+	r.GET("/docker/image/:name", svc.GetImage)
+	r.POST("/docker/image", svc.StoreImage)
+	r.POST("/docker/image/build", svc.BuildImage)
 
 	return svc
 }

@@ -6,7 +6,7 @@ function process() {
   gnome-terminal --tab --title="${1}" -- bash -c "${cmd}"
 }
 
-process "auth-svc"
+process "user-svc"
 process "docker-svc"
 process "api-gateway"
 
