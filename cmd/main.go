@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/alpha-omega-corp/api-gateway/middlewares"
-	"github.com/alpha-omega-corp/api-gateway/pkg/docker"
 	"github.com/alpha-omega-corp/api-gateway/pkg/user"
 	"github.com/alpha-omega-corp/services/config"
 	"github.com/alpha-omega-corp/services/httputils"
@@ -29,40 +28,35 @@ func main() {
 			reqlog.WithVerbose(true),
 		)))
 
-	// API Gateway
-	env, err := config.NewHandler().Environment("gateway")
-	if err != nil {
-		panic(err)
-	}
-
 	// UserService
 	envUser, err := config.NewHandler().Environment("user")
 	if err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+	} else {
+		svcUser := user.NewClient(envUser.Host)
+		user.RegisterClient(svcUser, router)
 	}
-
-	svcUser := user.NewClient(envUser.Host)
-	user.RegisterClient(svcUser, router)
 
 	// DockerService
-	envDocker, err := config.NewHandler().Environment("docker")
-	if err != nil {
-		panic(err)
-	}
+	/*
+		envDocker, err := config.NewHandler().Environment("docker")
+		if err != nil {
+			panic(err)
+		}
 
-	svcDocker := docker.NewClient(envDocker.Host)
-	docker.RegisterClient(svcDocker, router)
-
+		svcDocker := docker.NewClient(envDocker.Host)
+		docker.RegisterClient(svcDocker, router)
+	*/
 	// Starting...
-	listenAndServe(router, env.Host.Url)
+	listenAndServe(router)
 }
 
-func listenAndServe(r *bunrouter.Router, host string) {
+func listenAndServe(r *bunrouter.Router) {
 	var handler http.Handler
 	handler = httputils.ExitOnPanicHandler{Next: r}
 
 	srv := &http.Server{
-		Addr:         host,
+		Addr:         "0.0.0.0:3000",
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  60 * time.Second,

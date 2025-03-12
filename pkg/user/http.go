@@ -20,6 +20,7 @@ func RegisterClient(svc Client, r *bunrouter.Router) Client {
 	r.GET("/services", svc.GetServices)
 	r.GET("/service/:serviceId/permissions", svc.GetServicePermissions)
 	r.POST("/service/permissions", svc.CreateServicePermissions)
+	r.GET("/user/test", svc.GetTest)
 
 	return svc
 }

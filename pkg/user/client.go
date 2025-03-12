@@ -24,6 +24,7 @@ type Client interface {
 	GetUserPermissions(w http.ResponseWriter, req bunrouter.Request) error
 	GetRoles(w http.ResponseWriter, req bunrouter.Request) error
 	CreateRole(w http.ResponseWriter, req bunrouter.Request) error
+	GetTest(w http.ResponseWriter, req bunrouter.Request) error
 }
 
 type userClient struct {
@@ -82,4 +83,7 @@ func (svc *userClient) GetRoles(w http.ResponseWriter, req bunrouter.Request) er
 }
 func (svc *userClient) CreateRole(w http.ResponseWriter, req bunrouter.Request) error {
 	return CreateRoleHandler(w, req, svc.client)
+}
+func (svc *userClient) GetTest(w http.ResponseWriter, req bunrouter.Request) error {
+	return GetTestHandler(w, req, svc.client)
 }

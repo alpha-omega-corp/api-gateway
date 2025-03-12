@@ -255,3 +255,10 @@ func AssignUserHandler(w http.ResponseWriter, req bunrouter.Request, s proto.Use
 
 	return bunrouter.JSON(w, res)
 }
+
+func GetTestHandler(w http.ResponseWriter, req bunrouter.Request, s proto.UserServiceClient) error {
+	fmt.Println(req.Body)
+	return bunrouter.JSON(w, &proto.DeleteUserResponse{
+		Status: http.StatusOK,
+	})
+}

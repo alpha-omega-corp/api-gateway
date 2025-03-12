@@ -2,10 +2,10 @@ server:
 	go run cmd/main.go
 
 build:
-	go build -o bin/api-gateway cmd/main.go
+	docker build --tag api-gateway:multistage -f Dockerfile .
 
 run:
-	bin/api-gateway
+	docker run --publish 3000:3000 --name api-gateway api-gateway:multistage
 
 gateway:
 	bash ./scripts/boot
